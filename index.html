@@ -10,7 +10,7 @@
       AFRAME.registerComponent('open-link', {
         schema: { url: { default: '' } },
         init: function () {
-          this.el.addEventListener('click', () => {
+          this.el.addEventListener('touchstart', () => {
             window.open(this.data.url, '_blank');
           });
         }
