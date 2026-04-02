@@ -10,12 +10,12 @@
       AFRAME.registerComponent('open-link', {
         schema: { url: { default: '' } },
         init: function () {
-          // mousedown と touchstart の両方を設定することで、
-          // PCでもスマホでも触れた瞬間に即座に反応するようにしています
-          this.el.addEventListener('mousedown', () => {
+          // スマホでのタップ用
+          this.el.addEventListener('touchstart', () => {
             window.open(this.data.url, '_blank');
           });
-          this.el.addEventListener('touchstart', () => {
+          // 念のためPCブラウザ等のクリック用も残します
+          this.el.addEventListener('click', () => {
             window.open(this.data.url, '_blank');
           });
         }
@@ -29,21 +29,27 @@
              cursor="rayOrigin: mouse"
              gltf-model="dracoDecoderPath: https://www.gstatic.com/draco/v1/decoders/;">
       
+      <a-assets>
+        <a-asset-item id="hakase-model" src="hakase_temaneki-v1.glb"></a-asset-item>
+        <img id="insta-icon" src="Instagram_logo.png">
+        <img id="yt-icon" src="youtube_logo.png">
+      </a-assets>
+
       <a-light type="ambient" color="#ffffff" intensity="1.5"></a-light>
       <a-light type="directional" position="1 2 1" intensity="1"></a-light>
 
-      <a-entity gltf-model="hakase_temaneki-v1.glb" 
+      <a-entity gltf-model="#hakase-model" 
                 scale="1 1 1" 
                 position="0 0 -2">
       </a-entity>
       
-      <a-image src="Instagram_logo.png" 
+      <a-image src="#insta-icon" 
                position="0.5 0.5 -2" 
                width="0.3" height="0.3" 
                open-link="url: https://www.instagram.com/rockhillplants?igsh=b2w1N2h6MHptMjcy&utm_source=qr">
       </a-image>
 
-      <a-image src="youtube_logo.png" 
+      <a-image src="#yt-icon" 
                position="-0.5 0.5 -2" 
                width="0.3" height="0.3" 
                open-link="url: https://www.youtube.com/@rockhill-jp">
