@@ -10,14 +10,10 @@
       AFRAME.registerComponent('open-link', {
         schema: { url: { default: '' } },
         init: function () {
-          // スマホでのタップ用
-          this.el.addEventListener('touchstart', () => {
-            window.open(this.data.url, '_blank');
-          });
-          // 念のためPCブラウザ等のクリック用も残します
-          this.el.addEventListener('click', () => {
-            window.open(this.data.url, '_blank');
-          });
+          const openUrl = () => { window.open(this.data.url, '_blank'); };
+          // mousedownとtouchstartの両方を指定し、最速で反応するようにします
+          this.el.addEventListener('mousedown', openUrl);
+          this.el.addEventListener('touchstart', openUrl);
         }
       });
     </script>
@@ -26,7 +22,8 @@
   <body style="margin: 0; overflow: hidden;">
     
     <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;" 
-             cursor="rayOrigin: mouse"
+             cursor="rayOrigin: mouse; fuse: false;"
+             raycaster="objects: .clickable;"
              gltf-model="dracoDecoderPath: https://www.gstatic.com/draco/v1/decoders/;">
       
       <a-assets>
@@ -43,13 +40,15 @@
                 position="0 0 -2">
       </a-entity>
       
-      <a-image src="#insta-icon" 
+      <a-image class="clickable"
+               src="#insta-icon" 
                position="0.5 0.5 -2" 
                width="0.3" height="0.3" 
                open-link="url: https://www.instagram.com/rockhillplants?igsh=b2w1N2h6MHptMjcy&utm_source=qr">
       </a-image>
 
-      <a-image src="#yt-icon" 
+      <a-image class="clickable"
+               src="#yt-icon" 
                position="-0.5 0.5 -2" 
                width="0.3" height="0.3" 
                open-link="url: https://www.youtube.com/@rockhill-jp">
