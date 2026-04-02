@@ -10,7 +10,12 @@
       AFRAME.registerComponent('open-link', {
         schema: { url: { default: '' } },
         init: function () {
+          // スマホのタップ用
           this.el.addEventListener('touchstart', () => {
+            window.open(this.data.url, '_blank');
+          });
+          // PCブラウザのクリックテスト用（念のため追加）
+          this.el.addEventListener('click', () => {
             window.open(this.data.url, '_blank');
           });
         }
@@ -20,28 +25,36 @@
   
   <body style="margin: 0; overflow: hidden;">
     
-    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;" cursor="rayOrigin: mouse"
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;" 
+             cursor="rayOrigin: mouse;"
+             raycaster="objects: .clickable;"
              gltf-model="dracoDecoderPath: https://www.gstatic.com/draco/v1/decoders/;">
       
       <a-light type="ambient" color="#ffffff" intensity="1.5"></a-light>
       <a-light type="directional" position="1 2 1" intensity="1"></a-light>
 
-      <a-entity gltf-model="url(hakase_temaneki-v1.glb)" 
-                scale="1 1 1" 
-                position="0 0 -2">
-      </a-entity>
-      
-      <a-image src="Instagram_logo.png" 
-               position="0.5 0.5 -2" 
-               width="0.3" height="0.3" 
-               open-link="url: https://www.instagram.com/rockhillplants?igsh=b2w1N2h6MHptMjcy&utm_source=qr">
-      </a-image>
+      <a-marker preset="hiro">
+        
+        <a-entity gltf-model="url(hakase_temaneki-v1.glb)" 
+                  scale="1 1 1" 
+                  position="0 0 0">
+        </a-entity>
+        
+        <a-image src="Instagram_logo.png" 
+                 class="clickable"
+                 position="0.5 0.5 0" 
+                 width="0.3" height="0.3" 
+                 open-link="url: https://www.instagram.com/rockhillplants?igsh=b2w1N2h6MHptMjcy&utm_source=qr">
+        </a-image>
 
-      <a-image src="youtube_logo.png" 
-               position="-0.5 0.5 -2" 
-               width="0.3" height="0.3" 
-               open-link="url: https://www.youtube.com/@rockhill-jp">
-      </a-image>
+        <a-image src="youtube_logo.png" 
+                 class="clickable"
+                 position="-0.5 0.5 0" 
+                 width="0.3" height="0.3" 
+                 open-link="url: https://www.youtube.com/@rockhill-jp">
+        </a-image>
+
+      </a-marker>
       
       <a-camera></a-camera>
     </a-scene>
