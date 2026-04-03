@@ -7,14 +7,19 @@
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.4.0/dist/aframe-extras.min.js"></script>
     
+    <style>
+      /* スマホ画面の余計なスクロールや拡大を防止し、タップに全集中させる設定 */
+      body, html { touch-action: none; }
+    </style>
+
     <script>
       AFRAME.registerComponent('open-link', {
         schema: { url: { default: '' } },
         init: function () {
-          const navigate = () => { window.location.href = this.data.url; };
-          // clickに加えて、スマホで触れた瞬間に即反応するtouchstartを追加！
-          this.el.addEventListener('click', navigate);
-          this.el.addEventListener('touchstart', navigate);
+          // ★ clickではなく、指が触れた瞬間に即発動する mousedown に変更！
+          this.el.addEventListener('mousedown', () => {
+            window.location.href = this.data.url;
+          });
         }
       });
     </script>
@@ -28,7 +33,7 @@
              gltf-model="dracoDecoderPath: https://www.gstatic.com/draco/v1/decoders/;">
       
       <a-assets>
-        <a-asset-item id="hakase-model" src="https://rockhill-jp.github.io/ar-home/hakase_temaneki-v1-light.glb?v=103"></a-asset-item>
+        <a-asset-item id="hakase-model" src="https://rockhill-jp.github.io/ar-home/hakase_temaneki-v1-light.glb?v=104"></a-asset-item>
         <img id="insta-icon" src="Instagram_logo.png">
         <img id="yt-icon" src="youtube_logo.png">
         <img id="x-icon" src="x_logo.png">
@@ -48,37 +53,37 @@
       
       <a-entity position="0.4 1.0 -2">
         <a-image src="#insta-icon" width="0.2" height="0.2"></a-image>
-        <a-plane class="clickable" width="0.45" height="0.45" position="0 0 0.1" material="opacity: 0; transparent: true" 
+        <a-plane class="clickable" width="0.6" height="0.6" position="0 0 0.05" material="opacity: 0; transparent: true" 
                  open-link="url: https://www.instagram.com/rockhillplants?igsh=b2w1N2h6MHptMjcy&utm_source=qr"></a-plane>
       </a-entity>
 
       <a-entity position="-0.4 1.0 -2">
         <a-image src="#yt-icon" width="0.2" height="0.2"></a-image>
-        <a-plane class="clickable" width="0.45" height="0.45" position="0 0 0.1" material="opacity: 0; transparent: true" 
+        <a-plane class="clickable" width="0.6" height="0.6" position="0 0 0.05" material="opacity: 0; transparent: true" 
                  open-link="url: https://www.youtube.com/@rockhill-jp"></a-plane>
       </a-entity>
 
       <a-entity position="0.4 0.5 -2">
         <a-image src="#x-icon" width="0.2" height="0.2"></a-image>
-        <a-plane class="clickable" width="0.45" height="0.45" position="0 0 0.1" material="opacity: 0; transparent: true" 
+        <a-plane class="clickable" width="0.6" height="0.6" position="0 0 0.05" material="opacity: 0; transparent: true" 
                  open-link="url: https://x.com/rockhilljapan?s=21&t=uYQ5pHasPAQtFJYw6d434Q"></a-plane>
       </a-entity>
 
       <a-entity position="-0.4 0.5 -2">
         <a-image src="#base-icon" width="0.2" height="0.2"></a-image>
-        <a-plane class="clickable" width="0.45" height="0.45" position="0 0 0.1" material="opacity: 0; transparent: true" 
+        <a-plane class="clickable" width="0.6" height="0.6" position="0 0 0.05" material="opacity: 0; transparent: true" 
                  open-link="url: https://rockhill.official.ec"></a-plane>
       </a-entity>
 
       <a-entity position="0.4 0.0 -2">
         <a-image src="#threads-icon" width="0.2" height="0.2"></a-image>
-        <a-plane class="clickable" width="0.45" height="0.45" position="0 0 0.1" material="opacity: 0; transparent: true" 
+        <a-plane class="clickable" width="0.6" height="0.6" position="0 0 0.05" material="opacity: 0; transparent: true" 
                  open-link="url: https://www.threads.com/@rockhillplants?igshid=NTc4MTIwNjQ2YQ=="></a-plane>
       </a-entity>
 
       <a-entity position="-0.4 0.0 -2">
         <a-image src="#pa-icon" width="0.2" height="0.2"></a-image>
-        <a-plane class="clickable" width="0.45" height="0.45" position="0 0 0.1" material="opacity: 0; transparent: true" 
+        <a-plane class="clickable" width="0.6" height="0.6" position="0 0 0.05" material="opacity: 0; transparent: true" 
                  open-link="url: https://rockhill-jp.github.io/ar-plants/"></a-plane>
       </a-entity>
       
